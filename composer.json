@@ -1,0 +1,20 @@
+{
+    "name": "jpg-consulting/JpgAdmin",
+    "description": "An admin module for ZF2.",
+    "license": "BSD-3-Clause",
+    "keywords": [
+        "framework",
+        "zf2"
+    ],
+    "homepage": "http://www.github.com/jpg-consulting",
+    "require": {
+        "php": ">=5.3.3",
+        "zendframework/zendframework": "2.2.*",
+        "zf-commons/zfc-user": "dev-master"
+    },
+    "autoload": {
+        "psr-0": {
+            "Backend": "src/"
+        },
+    }
+}
