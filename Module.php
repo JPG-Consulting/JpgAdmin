@@ -47,6 +47,7 @@ use Zend\ModuleManager\Feature\BootstrapListenerInterface;
 use Zend\EventManager\EventInterface;
 use Zend\Mvc\MvcEvent;
 use Zend\Mvc\Router\RouteMatch;
+use ZfcUser\Mapper\UserHydrator;
 
 class Module implements 
     AutoloaderProviderInterface,
@@ -77,6 +78,27 @@ class Module implements
             'factories' => array(
                 'admin_navigation'     => 'JpgAdmin\Navigation\Service\AdminNavigationFactory',
                 'admin_top_navigation' => 'JpgAdmin\Navigation\Service\AdminTopNavigationFactory',
+                'zfcuser_user_mapper'      => function ($sm) {
+                    if ($sm->has('zfcuser_doctrine_em')) {
+                        // Doctrine
+                        return new \JpgAdmin\ZfcUser\Mapper\Doctrine\User(
+                            $sm->get('zfcuser_doctrine_em'),
+                            $sm->get('zfcuser_module_options')	
+                        );
+                    } else {
+                        // ZendDB
+                    	$zfcUserOptions = $sm->get('zfcuser_module_options');
+
+                        /** @var $mapper \ZfcUserAdmin\Mapper\UserZendDb */
+                        $mapper = new \JpgAdmin\ZfcUser\Mapper\Zend\User();
+                        $mapper->setDbAdapter($sm->get('zfcuser_zend_db_adapter'));
+                        $entityClass = $zfcUserOptions->getUserEntityClass();
+                        $mapper->setEntityPrototype(new $entityClass);
+                        $mapper->setHydrator(new UserHydrator());
+
+                        return $mapper;
+                    }
+                }
             ),
             'invokables' => array(
             	'AdminListener'    => 'JpgAdmin\Mvc\AdminListener'
