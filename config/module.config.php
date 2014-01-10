@@ -10,9 +10,19 @@ return array(
    
     'navigation' => array(
         'admin'     => array(
+            'dashboard' => array(
+                'label' => 'Dashboard',
+                'route' => 'jpgadmin'
+            ),
     	    'users' => array(
         	    'label' => 'Users',
-    	        'route' => 'jpgadmin/users'
+    	        'route' => 'jpgadmin/users',
+    	        'pages' => array(
+                     array(
+                         'label' => 'Create',
+                         'route' => 'jpgadmin/users/create'
+                     )
+                 )
             )
         ),
         'admin_top' => array(),
@@ -41,6 +51,19 @@ return array(
                             ),
                         ),
                         'may_terminate' => true,
+                        'child_routes' => array(
+                            'create' => array(
+                                'type'    => 'Literal',
+                                'options' => array(
+                                    'route'    => '/create',
+                                    'defaults' => array(
+                                        'controller'    => 'JpgAdmin\Controller\UsersController',
+                                        'action'        => 'create',
+                                    ),
+                                ),
+                                'may_terminate' => true,
+                             ),
+                        )
                     )
                 ),
             ),

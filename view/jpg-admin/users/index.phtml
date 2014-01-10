@@ -1,27 +1,34 @@
-<h1><?php echo $this->translate('Users') ?></h1>
+<header>
+    <h1><?php echo $this->translate('Users') ?></h1>
+    <?php echo $this->navigation('admin_navigation')->breadcrumbs()->setSeparator('/')->render(); ?>
+</header>
 
-<div class="navbar filter-bar">
-    <div class="navbar-inner">
-        <div class="pull-right">
-            
+<section>
+    <article>
+        <div class="navbar filter-bar">
+            <div class="navbar-inner">
+                <div class="pull-right">
+                    
+                </div>
+            </div>
         </div>
-    </div>
-</div>
-
-<table class="table">
-    <thead>
-        <tr>
-            <th><?php echo $this->translate('Username') ?></th>
-            <th><?php echo $this->translate('E-Mail') ?></th>
-        </tr>
-    </thead>
-    <tbody>
-    <?php foreach ($this->users as $user): ?>
-        <tr>
-            <td><?php echo $user->getUsername() ?></td>
-            <td><?php echo $user->getEmail() ?></td>
-        </tr>
-    <?php endforeach; ?>
-    </tbody>
-    
-</table>
+        
+        <table class="table">
+            <thead>
+                <tr>
+                    <th><?php echo $this->translate('Username') ?></th>
+                    <th><?php echo $this->translate('E-Mail') ?></th>
+                </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($this->users as $user): ?>
+                <tr>
+                    <td><?php echo $user->getUsername() ?></td>
+                    <td><?php echo $user->getEmail() ?></td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+            
+        </table>
+    </article>
+</section>
