@@ -50,6 +50,7 @@ aside.admin-menu {
 	position: fixed;
 	top:51px;
 	width:216px;
+	-webkit-overflow-scrolling: touch;
 }
 
 aside.admin-menu ul {
@@ -100,6 +101,20 @@ aside.admin-menu ul li a .fa-caret-down {
 
 #page {
 	margin-left:217px;
+}
+
+@media (max-width: 767px) {
+	aside.admin-menu {
+		display:none;
+		width:100%;
+	}
+	aside.admin-menu.in {
+		display:block;
+		z-index:99999;
+	}
+	#page {
+		margin-left:0;
+	}
 }
 
 #page > header {
