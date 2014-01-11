@@ -11,18 +11,20 @@ return array(
     'navigation' => array(
         'admin'     => array(
             'dashboard' => array(
+                'icon'  => 'fa fa-home',
                 'label' => 'Dashboard',
                 'route' => 'jpgadmin'
             ),
     	    'users' => array(
-        	    'label' => 'Users',
-    	        'route' => 'jpgadmin/users',
-    	        'pages' => array(
-                     array(
-                         'label' => 'Create',
-                         'route' => 'jpgadmin/users/create'
-                     )
-                 )
+                'label' => 'Users',
+                'icon'  => 'fa fa-users',
+                'route' => 'jpgadmin/users',
+                'pages' => array(
+                    array(
+                        'label' => 'Create',
+                        'route' => 'jpgadmin/users/create'
+                    )
+                )
             )
         ),
         'admin_top' => array(),
