@@ -1,0 +1,81 @@
+@CHARSET "ISO-8859-1";
+
+#admin-menu {
+	background: #272930;
+	border-right:1px solid #000;
+	bottom:0!important;
+	height:auto!important;
+	left:0;
+	position: fixed;
+	top:51px;
+	width:216px;
+	-webkit-overflow-scrolling: touch;
+}
+
+#admin-menu ul {
+	list-style:none!important;
+	margin:0!important;
+	padding:0!important;	
+}
+
+#admin-menu li {
+	border-left:1px solid transparent;
+	display:block;	
+}
+
+#admin-menu li.active {
+	border-left:1px solid #09F;
+}
+
+#admin-menu li ul {
+	background: #494c59;
+}
+
+/* Indent submenu */
+#admin-menu li ul li a {
+	padding-left:28px!important;
+}
+
+#admin-menu a {
+	border-top: 1px solid #32353e;
+	border-bottom: 1px solid #1a1c20;
+	display:block;
+	padding: 14px 18px 13px 15px;
+	position:relative;
+	color: #c9d4f6;
+	font-size: 12px;
+	font-weight: 300;
+	text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.3);
+	white-space: nowrap;
+}
+
+#admin-menu a:hover,
+#admin-menu a:focus,
+#admin-menu a:active {
+	background:#3a3d47;
+	text-decoration:none;
+}
+
+.js #admin-menu li.active ul.sub-menu {
+	display:block;
+}
+
+.js #admin-menu ul.sub-menu {
+	display:none;
+}
+
+
+
+@media (max-width: 767px) {
+	#admin-menu {
+		display:none;
+		width:100%;
+	}
+	#admin-menu.in {
+		display:block;
+		z-index:99999;
+	}
+	#page {
+		margin-left:0;
+	}
+}
