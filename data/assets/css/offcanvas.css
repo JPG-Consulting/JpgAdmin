@@ -2,6 +2,7 @@ html, body {
 	overflow:hidden;
 	/*overflow-y:visible;*/
 	overflow-x:hidden;
+	min-width:260px;
 }
 
 
@@ -23,12 +24,17 @@ html, body {
 	left:0;
 	background: #313949;
 	overflow-y: auto;
+	overflow-x:hidden;
 	transition: all 0.3s ease;
 	width:0;
 	-webkit-overflow-scrolling: touch;
 	z-index:99999;
 	-webkit-box-shadow:inset -5px 0 5px -2px rgba(0,0,0,0.3);
 	box-shadow:inset -5px 0 5px -2px rgba(0,0,0,0.3);
+}
+#offcanvas-left ul
+{
+	min-width:216px;
 }
 #offcanvas-left ul ul {
 	-webkit-box-shadow:inset -5px 0 5px -2px rgba(0,0,0,0.25);
