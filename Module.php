@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2014 Juan Pedro Gonzalez
+ * Copyright (c)2013-2014 Juan Pedro Gonzalez Gutierrez
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -32,29 +32,28 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @package     JpgAdmin
- * @author      Juan Pedro Gonzalez
- * @copyright   2014 Juan Pedro Gonzalez
- * @license     http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @link        http://github.com/jpg-consulting
+ * @package   JpgAdmin
+ * @author    Juan Pedro Gonzalez Gutierrez
+ * @copyright 2013-2014 Juan Pedro Gonzalez Gutierrez
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @link      http://github.com/jpg-consulting
  */
+
 namespace JpgAdmin;
 
+use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
 use Zend\ModuleManager\Feature\ServiceProviderInterface;
-use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
 use Zend\ModuleManager\Feature\BootstrapListenerInterface;
 use Zend\EventManager\EventInterface;
-use Zend\Mvc\MvcEvent;
-use Zend\Mvc\Router\RouteMatch;
 
 class Module implements 
     AutoloaderProviderInterface,
     BootstrapListenerInterface,
-    ConfigProviderInterface,
+    ConfigProviderInterface, 
     ServiceProviderInterface
 {
-
+    
     public function getAutoloaderConfig()
     {
         return array(
@@ -70,16 +69,16 @@ class Module implements
     {
         return include __DIR__ . '/config/module.config.php';
     }
-    
+
     public function getServiceConfig()
     {
         return array(
             'factories' => array(
-                'admin_navigation'     => 'JpgAdmin\Navigation\Service\AdminNavigationFactory',
-                'admin_top_navigation' => 'JpgAdmin\Navigation\Service\AdminTopNavigationFactory',
+                'adminbar'  => 'JpgAdmin\Navigation\Service\AdminbarNavigationFactory',
+                'adminmenu' => 'JpgAdmin\Navigation\Service\AdminmenuNavigationFactory',
             ),
             'invokables' => array(
-            	'AdminListener'    => 'JpgAdmin\Mvc\AdminListener'
+                'jpgadmin_ModuleListener'    => 'JpgAdmin\Mvc\ModuleListener'
             )
         );
     }
@@ -89,8 +88,8 @@ class Module implements
         $app  = $e->getParam('application');
         $em   = $app->getEventManager();
         $sm   = $app->getServiceManager();
-        
-        $em->attachAggregate($sm->get('AdminListener'));
+    
+        $em->attachAggregate($sm->get('jpgadmin_ModuleListener'));
     }
     
 }

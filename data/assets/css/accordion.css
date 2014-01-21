@@ -1,0 +1,45 @@
+.accordion,
+.accordion ul,
+.accordion li {
+	display:block;
+	list-style:none;
+	margin:0;
+	padding:0;
+}
+
+
+
+.accordion a {
+	border-top:1px solid #414857;
+	border-bottom:1px solid #242b38;
+	color:#afb7c5;
+	display:block;
+	font-size:14px;
+	padding:11px;
+	text-decoration:none;
+	text-shadow: 0 1px 0 #232834;
+}
+
+.accordion > li > ul {
+	background: #424a5d;	
+}
+
+.accordion > li > ul a {
+	border-top:1px solid #51586a;
+	border-bottom:1px solid #242b38;
+}
+
+.accordion a em {
+	color:#888;
+	display:inline-block;
+	padding-right:11px;
+}
+
+.accordion li ul {
+	display:none;
+}
+
+.accordion li.open ul {
+	display:block;
+}
+

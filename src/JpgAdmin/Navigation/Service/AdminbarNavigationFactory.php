@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2014 Juan Pedro Gonzalez
+ * Copyright (c)2013-2014 Juan Pedro Gonzalez Gutierrez
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -32,21 +32,22 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @package     JpgAdmin
- * @author      Juan Pedro Gonzalez
- * @copyright   2014 Juan Pedro Gonzalez
- * @license     http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @link        http://github.com/jpg-consulting
+ * @package   JpgAdmin
+ * @author    Juan Pedro Gonzalez Gutierrez
+ * @copyright 2013-2014 Juan Pedro Gonzalez Gutierrez
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @link      http://github.com/jpg-consulting
  */
+
 namespace JpgAdmin\Navigation\Service;
 
 use Zend\Navigation\Service\DefaultNavigationFactory;
 
-class AdminNavigationFactory extends DefaultNavigationFactory
+class AdminbarNavigationFactory extends DefaultNavigationFactory
 {
 
     protected function getName()
     {
-        return 'admin';
+        return 'adminbar';
     }
 }

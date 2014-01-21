@@ -1,0 +1,8 @@
+body {
+  padding-top: 51px;
+}
+
+/* Change the container width as we want full screen width */
+.container {
+	width:100%;
+}

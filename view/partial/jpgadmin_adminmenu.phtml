@@ -1,0 +1,57 @@
+<ul class="accordion">
+    <?php 
+        $item_number = 0;
+        foreach ($this->container as $page):
+            // when using partials we need to manually check for ACL conditions 
+            if( ! $page->isVisible() || !$this->navigation()->accept($page)) continue;
+            $item_number++;
+    ?>
+            <?php if (!$page->hasPages()) : ?>
+            <li id="adminmenu-item-<?php echo $item_number?>" <?php if($page->isActive()) echo ' class="active"'?>>
+                <em><i class="fa fa-folder"></i></em>
+                <a href="<?php echo $page->getHref() ?>"><?php echo $this->translate($page->getLabel()) ?></a>
+            </li>
+            <?php else: ?>
+            <li id="adminmenu-item-<?php echo $item_number?>" class="<?php if($page->isActive()) echo ' active'?>">
+                <a href="#adminmenu-item-<?php echo $item_number?>">
+                    <em><i class="fa fa-folder"></i></em>
+                    <?php echo $this->translate($page->getLabel()) ?> <b class="caret"></b>
+                </a>
+                <ul class="sub-menu">
+                <?php $subitem_number = 0; ?>
+                <?php foreach($page->getPages() as $child): ?>
+                    <?php if( ! $child->isVisible() || !$this->navigation()->accept($child)) continue; ?>
+                    <?php $subitem_number++; ?>
+                    <li>
+                        <a href="<?php echo $child->getHref() ?>">
+                            <?php if (!empty($child->icon)) : ?>
+                                <em></em>
+                            <?php else: ?>
+                                <em><?php echo str_pad((string)$subitem_number, 2, '0', STR_PAD_LEFT)?></em>
+                            <?php endif; ?>
+                            
+                            <?php echo $this->translate($child->getLabel()) ?>
+                        </a>
+                    </li>
+                <?php endforeach; ?>
+                </ul>                
+            </li>
+            <?php endif; ?>
+    <?php 
+        endforeach; 
+    ?>
+    
+    <!-- 
+            <li id="one" class="open files"><a href="#one">My Files<span>495</span></a>
+                <ul class="sub-menu">
+                        <li><a href="#"><em>01</em>Dropbox<span>42</span></a></li>
+                        <li><a href="#"><em>02</em>Skydrive<span>87</span></a></li>
+                        <li><a href="#"><em>03</em>FTP Server<span>366</span></a></li>
+                </ul>
+            </li>
+            <li id="two" class="mail"><a href="#two">Mail<span>26</span></a></li>
+            <li id="three" class="cloud"><a href="#three">Cloud<span>58</span></a></li>
+            <li id="four" class="sign"><a href="#four"><i class="fa fa-sign-out"></i>Sign Out</a></li>
+     -->     
+        
+</ul>

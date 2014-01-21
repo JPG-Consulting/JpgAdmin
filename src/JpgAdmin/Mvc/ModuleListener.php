@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2014 Juan Pedro Gonzalez
+ * Copyright (c)2013-2014 Juan Pedro Gonzalez Gutierrez
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -32,12 +32,13 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @package     JpgAdmin
- * @author      Juan Pedro Gonzalez
- * @copyright   2014 Juan Pedro Gonzalez
- * @license     http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @link        http://github.com/jpg-consulting
+ * @package   JpgAdmin
+ * @author    Juan Pedro Gonzalez Gutierrez
+ * @copyright 2013-2014 Juan Pedro Gonzalez Gutierrez
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @link      http://github.com/jpg-consulting
  */
+
 namespace JpgAdmin\Mvc;
 
 use Zend\EventManager\ListenerAggregateInterface;
@@ -46,23 +47,23 @@ use Zend\EventManager\EventManagerInterface;
 use Zend\Mvc\Router\RouteMatch;
 use Zend\Mvc\Application;
 
-class AdminListener implements ListenerAggregateInterface
+class ModuleListener implements ListenerAggregateInterface
 {
-	
+
     protected $listeners = array();
-    
+
     /**
      * Attach to an event manager
      *
      * @param  EventManagerInterface $events
      * @return void
-     */
+    */
     public function attach(EventManagerInterface $events)
     {
         $this->listeners[] = $events->attach(MvcEvent::EVENT_ROUTE, array($this, 'onRoute'), -100);
         $this->listeners[] = $events->attach(MvcEvent::EVENT_DISPATCH, array($this, 'onDispatch'));
     }
-    
+
     /**
      * Detach all our listeners from the event manager
      *
@@ -77,7 +78,7 @@ class AdminListener implements ListenerAggregateInterface
             }
         }
     }
-    
+
     /**
      * Listen to the "route" event and check for an authenticated user
      *
@@ -92,23 +93,23 @@ class AdminListener implements ListenerAggregateInterface
     public function onRoute(MvcEvent $e)
     {
         $routeMatch = $e->getRouteMatch();
-        
+
         if (!$routeMatch instanceof RouteMatch)
             return null;
-        
+
         // Get the base route
         $baseRoute = explode('/', $routeMatch->getMatchedRouteName(), 2);
         $baseRoute = $baseRoute[0];
-        
+
         if (strcmp($baseRoute, 'jpgadmin') !== 0)
             return;
-        
+
         $sm  = $e->getApplication()->getServiceManager();
-        
+
         // Throw an error if ZfcUser is not present
         if (!$sm->has('zfcuser_auth_service')) {
             $e->setError(Application::ERROR_ROUTER_NO_MATCH);
-            
+
             $results = $e->getTarget()->getEventManager()->trigger(MvcEvent::EVENT_DISPATCH_ERROR, $e);
             if (count($results)) {
                 $return  = $results->last();
@@ -117,52 +118,52 @@ class AdminListener implements ListenerAggregateInterface
             }
             return $return;
         }
-        
+
         // Check if the user is authentified
         $auth = $sm->get('zfcuser_auth_service');
         if ($auth->hasIdentity())
             return;
-        
+
         $request_uri = $e->getRequest()->getUriString();
-        
+
         // Redirect to the user login page
         $router   = $e->getRouter();
         $url      = $router->assemble(array(), array(
             'name' => 'zfcuser/login',
             'query' => array('redirect' => urlencode($request_uri))
         ));
-        
+
         $response = $e->getResponse();
         $response->getHeaders()->addHeaderLine('Location', $url);
         $response->setStatusCode(302);
-        
+
         return $response;
     }
-    
+
     /**
      * Set the admin layout for the admin route
-     * 
+     *
      * @param MvcEvent $e
      * @return void|NULL
      */
     public function onDispatch(MvcEvent $e)
     {
         $routeMatch = $e->getRouteMatch();
-        
+
         if (!$routeMatch instanceof RouteMatch)
             return null;
-        
+
         // Get the base route
         $baseRoute = explode('/', $routeMatch->getMatchedRouteName(), 2);
         $baseRoute = $baseRoute[0];
-        
+
         if (strcmp($baseRoute, 'jpgadmin') !== 0)
             return;
-        
+
         $controller = $e->getTarget();
         if ($controller->getEvent()->getResult()->terminate())
             return;
-        
+
         $controller->layout('layout/admin');
     }
 }
