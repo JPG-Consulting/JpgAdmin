@@ -1,6 +1,7 @@
 <ul class="accordion">
     <?php 
         $item_number = 0;
+        $hasOpenItem = false;
         foreach ($this->container as $page):
             // when using partials we need to manually check for ACL conditions 
             if( ! $page->isVisible() || !$this->navigation()->accept($page)) continue;
@@ -12,7 +13,7 @@
                 <a href="<?php echo $page->getHref() ?>"><?php echo $this->translate($page->getLabel()) ?></a>
             </li>
             <?php else: ?>
-            <li id="adminmenu-item-<?php echo $item_number?>" class="<?php if($page->isActive()) echo ' active'?>">
+            <li id="adminmenu-item-<?php echo $item_number?>" class="<?php if($page->isActive()) echo 'active'?><?php echo ($hasOpenItem === false) ?  ' open' : ''; $hasOpenItem = true; ?>">
                 <a href="#adminmenu-item-<?php echo $item_number?>">
                     <em><i class="fa fa-folder"></i></em>
                     <?php echo $this->translate($page->getLabel()) ?> <b class="caret"></b>
@@ -39,19 +40,6 @@
             <?php endif; ?>
     <?php 
         endforeach; 
-    ?>
-    
-    <!-- 
-            <li id="one" class="open files"><a href="#one">My Files<span>495</span></a>
-                <ul class="sub-menu">
-                        <li><a href="#"><em>01</em>Dropbox<span>42</span></a></li>
-                        <li><a href="#"><em>02</em>Skydrive<span>87</span></a></li>
-                        <li><a href="#"><em>03</em>FTP Server<span>366</span></a></li>
-                </ul>
-            </li>
-            <li id="two" class="mail"><a href="#two">Mail<span>26</span></a></li>
-            <li id="three" class="cloud"><a href="#three">Cloud<span>58</span></a></li>
-            <li id="four" class="sign"><a href="#four"><i class="fa fa-sign-out"></i>Sign Out</a></li>
-     -->     
+    ?>     
         
 </ul>
